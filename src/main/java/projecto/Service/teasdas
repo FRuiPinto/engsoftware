@@ -1,0 +1,55 @@
+
+        TarefaEvolucao te1  = new TarefaEvolucao(t1.getId());
+        TarefaEvolucao te2  = new TarefaEvolucao(t2.getId());
+        TarefaEvolucao te3  = new TarefaEvolucao(t3.getId());
+        TarefaEvolucao te4  = new TarefaEvolucao(t4.getId());
+        TarefaEvolucao te5  = new TarefaEvolucao(t5.getId());
+        TarefaEvolucao te6  = new TarefaEvolucao(t6.getId());
+        TarefaEvolucao te7  = new TarefaEvolucao(t7.getId());
+        TarefaEvolucao te8  = new TarefaEvolucao(t8.getId());
+        TarefaEvolucao te9  = new TarefaEvolucao(t9.getId());
+        TarefaEvolucao te10 = new TarefaEvolucao(t10.getId());
+        TarefaEvolucao te11 = new TarefaEvolucao(t11.getId());
+        TarefaEvolucao te12 = new TarefaEvolucao(t12.getId());
+        TarefaEvolucao te13 = new TarefaEvolucao(t13.getId());
+        TarefaEvolucao te14 = new TarefaEvolucao(t14.getId());
+        TarefaEvolucao te15 = new TarefaEvolucao(t15.getId());
+        TarefaEvolucao te16 = new TarefaEvolucao(t16.getId());
+        TarefaEvolucao te17 = new TarefaEvolucao(t17.getId());
+        TarefaEvolucao te18 = new TarefaEvolucao(t18.getId());
+        TarefaEvolucao te19 = new TarefaEvolucao(t19.getId());
+        TarefaEvolucao te20 = new TarefaEvolucao(t20.getId());
+        TarefaEvolucao te21 = new TarefaEvolucao(t21.getId());
+        TarefaEvolucao te22 = new TarefaEvolucao(t22.getId());
+        TarefaEvolucao te23 = new TarefaEvolucao(t23.getId());
+        TarefaEvolucao te24 = new TarefaEvolucao(t24.getId());
+        TarefaEvolucao te25 = new TarefaEvolucao(t25.getId());
+        TarefaEvolucao te26 = new TarefaEvolucao(t26.getId());
+        TarefaEvolucao te27 = new TarefaEvolucao(t27.getId());
+        TarefaEvolucao te28 = new TarefaEvolucao(t28.getId());
+        TarefaEvolucao te29 = new TarefaEvolucao(t29.getId());
+        TarefaEvolucao te30 = new TarefaEvolucao(t30.getId());
+        TarefaEvolucao te31 = new TarefaEvolucao(t31.getId());
+        TarefaEvolucao te32 = new TarefaEvolucao(t32.getId());
+        TarefaEvolucao te33 = new TarefaEvolucao(t33.getId());
+        TarefaEvolucao te34 = new TarefaEvolucao(t34.getId());
+        TarefaEvolucao te35 = new TarefaEvolucao(t35.getId());
+        TarefaEvolucao te36 = new TarefaEvolucao(t36.getId());
+        TarefaEvolucao te37 = new TarefaEvolucao(t37.getId());
+        TarefaEvolucao te38 = new TarefaEvolucao(t38.getId());
+        TarefaEvolucao te39 = new TarefaEvolucao(t39.getId());
+        TarefaEvolucao te40 = new TarefaEvolucao(t40.getId());
+        TarefaEvolucao te41 = new TarefaEvolucao(t41.getId());
+        TarefaEvolucao te42 = new TarefaEvolucao(t42.getId());
+        TarefaEvolucao te43 = new TarefaEvolucao(t43.getId());
+        TarefaEvolucao te44 = new TarefaEvolucao(t44.getId());
+        TarefaEvolucao te45 = new TarefaEvolucao(t45.getId());
+        TarefaEvolucao te46 = new TarefaEvolucao(t46.getId());
+        TarefaEvolucao te47 = new TarefaEvolucao(t47.getId());
+        TarefaEvolucao te48 = new TarefaEvolucao(t48.getId());
+        TarefaEvolucao te49 = new TarefaEvolucao(t49.getId());
+        TarefaEvolucao te50 = new TarefaEvolucao(t50.getId());
+
+        tarefaEvolucaoRepository.saveAll(Arrays.asList(te1, te2, te3, te4, te5, te6, te7, te8, te9, te10, te11, te12, te13, te14, te15, te16, te17, te18, te19, te20, te21, te22, te23, te24, te25, te26, te27, te28, te29, te30, te31, te32, te33, te34, te35, te36, te37, te38, te39, te40, te41, te42, te43, te44, te45, te46, te47, te48, te49, te50));
+
+  
