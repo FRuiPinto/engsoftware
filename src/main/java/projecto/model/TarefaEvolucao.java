@@ -10,15 +10,15 @@ import java.io.Serializable;
 public class TarefaEvolucao implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @ColumnDefault(value = "0")
-    @Column(name = "horasexecutadas" )
-    private Integer horasExecutadas = 0 ;
+    @Column(name = "horasexecutadas")
+    private Integer horasExecutadas  ;
 
     @Column(name = "precentagemhoras")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer perceExecutadas = 0 ;
+    private Integer perceExecutadas  ;
 
     public TarefaEvolucao(){
+        this.perceExecutadas=0;
+        this.horasExecutadas=0;
     }
 
 }

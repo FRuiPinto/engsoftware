@@ -72,6 +72,6 @@ public class Tarefa implements Serializable {
         this.horasPrevistas=horasPrevistas;
         col.getListaTarefas().add(this);
         this.ativo = true;
-
+        this.tarefaEvolucao = new TarefaEvolucao();
     }
 }
