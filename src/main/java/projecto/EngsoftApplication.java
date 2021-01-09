@@ -6,8 +6,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import projecto.model.*;
-import projecto.repositories.*;
+import projecto.model.Cliente;
+import projecto.model.Colaborador;
+import projecto.model.FuncaoColaborador;
+import projecto.model.Projeto;
+import projecto.model.Tarefa;
+import projecto.repositories.ClienteRepository;
+import projecto.repositories.ColaboradorRepository;
+import projecto.repositories.FuncaoColaboradorRepository;
+import projecto.repositories.ProjetoRepository;
+import projecto.repositories.TarefaRepository;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
