@@ -30,8 +30,8 @@ public class ProjetoControlador {
     private FuncaoColaboradorRepository funcaoColaboradorRepository;
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public ResponseEntity<Projeto> find(@PathVariable Integer id) {
-        Projeto obj = projetoService.find(id);
-        return ResponseEntity.ok().body(obj);
+        Projeto proj = projetoService.find(id);
+        return ResponseEntity.ok().body(proj);
     }
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ResponseEntity<List<Projeto>> findAll() {
@@ -39,17 +39,17 @@ public class ProjetoControlador {
         return ResponseEntity.ok().body(projetos);
     }
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ProjetoNewDTO obj ) {
-        Projeto p1 = projetoService.insert(obj);
+    public ResponseEntity<Void> insert(@Valid @RequestBody ProjetoNewDTO proj ) {
+        Projeto p1 = projetoService.insert(proj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(p1.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody Projeto obj, @PathVariable Integer id) {
-        obj.setId(id);
-        obj = projetoService.update(obj);
+    public ResponseEntity<Void> update(@Valid @RequestBody Projeto proj, @PathVariable Integer id) {
+        proj.setId(id);
+        proj = projetoService.update(proj);
         return ResponseEntity.noContent().build();
     }
 
