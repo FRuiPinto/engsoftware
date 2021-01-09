@@ -13,6 +13,7 @@ import projecto.model.Tarefa;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -46,8 +47,8 @@ public class TarefaControlador {
         return ResponseEntity.noContent().build();
     }
     @RequestMapping(value="/{id}/{horas}", method=RequestMethod.PATCH)
-    public ResponseEntity<Void> uptadeHoras(@PathVariable Integer id,@PathVariable Integer horas) {
-        tarefaService.updateHoras(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> uptadeHoras(@PathVariable Integer id,@PathVariable Integer horas) throws ParseException {
+        String resposta = tarefaService.updateHoras(id,horas);
+        return ResponseEntity.ok().body(resposta);
     }
 }

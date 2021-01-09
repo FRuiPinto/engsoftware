@@ -14,14 +14,17 @@ public class TarefaEvolucao implements Serializable {
     private Integer horasExecutadas  ;
 
     @Column(name = "percentagemhoras")
-    private Integer perceExecutadas  ;
+    private Double perceExecutadas  ;
 
     public TarefaEvolucao(){
-        this.perceExecutadas=0;
+        this.perceExecutadas= 0.00;
         this.horasExecutadas=0;
     }
 
-    public void setHorasExecutadas(Integer horas){
+    public void setHorasExecutadasTemp(Integer horas){
         this.horasExecutadas += horas;
+    }
+    public void setPerceExecutadasTemp(Double perceExecutadas){
+        this.perceExecutadas += perceExecutadas;
     }
 }

@@ -10,8 +10,13 @@ import projecto.model.*;
 import projecto.model.DTO.ProjetoNewDTO;
 import projecto.model.DTO.TarefaNewDTO;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TarefaService {
@@ -51,7 +56,7 @@ public class TarefaService {
     }
 
     public Tarefa fromDTO(TarefaNewDTO obj){
-
+//LocalDate inicio, LocalDate fim, String descricao, Colaborador col, Projeto projeto, Integer horasPrevistas
         Colaborador clo = colaboradorRepository.getOne(obj.getIdcolaborador());
         Projeto p1 = projetoRepository.getOne(obj.getIdprojeto());
         Tarefa t1 = new Tarefa(obj.getDtini(),obj.getDtfim(),obj.getDescricao(),clo,p1);
@@ -60,9 +65,27 @@ public class TarefaService {
         return t1;
     }
 
-    public void updateHoras(Integer id , Integer horas) {
+    public String updateHoras(Integer id , Integer horas) throws ParseException {
         Optional<Tarefa> t = tarefaRepository.findById(id);
+        double percentagem = (double)(horas*100)/t.get().getHorasPrevistas();
+        System.out.println(horas);
+        System.out.println(percentagem);
+        int horasAntigas = t.get().getTarefaEvolucao().getHorasExecutadas();
+        double percentagemAntiga = t.get().getTarefaEvolucao().getPerceExecutadas();
 
-        t.get().getTarefaEvolucao().setHorasExecutadas(horas);
+
+        if(t.get().getTarefaEvolucao().getHorasExecutadas() + horas >= 100 ){
+            t.get().setAtivo(false);
+            t.get().getTarefaEvolucao().setPerceExecutadas(100.0);
+            t.get().getTarefaEvolucao().setHorasExecutadas( t.get().getHorasPrevistas());
+
+        }else {
+                t.get().getTarefaEvolucao().setHorasExecutadasTemp(horas);
+            t.get().getTarefaEvolucao().setPerceExecutadasTemp(percentagem);
+
+        }
+        tarefaRepository.save(t.get());
+        String resposta = "Horas de antigas " +horasAntigas + " atualizadas para " + t.get().getTarefaEvolucao().getHorasExecutadas() + " percentagem de " + percentagemAntiga + "% passout para "+ t.get().getTarefaEvolucao().getPerceExecutadas() ;
+        return resposta;
     }
 }
