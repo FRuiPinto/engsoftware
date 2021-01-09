@@ -19,8 +19,8 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public Cliente find(Integer id) {
-        Optional<Cliente> obj = clienteRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
+        Optional<Cliente> client = clienteRepository.findById(id);
+        return client.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
@@ -28,14 +28,14 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente insert(Cliente obj) {
-        obj.setId(null);
-        obj = clienteRepository.save(obj);
-        return obj;
+    public Cliente insert(Cliente client) {
+        client.setId(null);
+        client = clienteRepository.save(client);
+        return client;
     }
-    public Cliente update(Cliente obj) {
-        Cliente newObj = find(obj.getId());
-        updateDadosCliente(newObj, obj);
+    public Cliente update(Cliente client) {
+        Cliente newObj = find(client.getId());
+        updateDadosCliente(newObj, client);
         return clienteRepository.save(newObj);
     }
 
@@ -48,9 +48,9 @@ public class ClienteService {
             throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
         }
     }
-    private void updateDadosCliente(Cliente newObj, Cliente obj) {
-        newObj.setNome(obj.getNome());
-        newObj.setNif(obj.getNif());
+    private void updateDadosCliente(Cliente newObj, Cliente client) {
+        newObj.setNome(client.getNome());
+        newObj.setNif(client.getNif());
     }
 
 

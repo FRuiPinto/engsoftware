@@ -23,8 +23,8 @@ public class ProjetoService {
     @Autowired
     private ClienteRepository clienteRepository;
     public Projeto find(Integer id) {
-        Optional<Projeto> obj = projetoRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
+        Optional<Projeto> proj = projetoRepository.findById(id);
+        return proj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id ));
     }
 
@@ -32,15 +32,15 @@ public class ProjetoService {
         return projetoRepository.findAll();
     }
 
-    public Projeto insert(ProjetoNewDTO obj) {
-        Projeto p1 = fromDTO(obj);
+    public Projeto insert(ProjetoNewDTO proj) {
+        Projeto p1 = fromDTO(proj);
         p1 = projetoRepository.save(p1);
         return p1;
     }
 
-    public Projeto update(Projeto obj) {
-        Projeto newObj = find(obj.getId());
-        updateDadosProjecto(newObj, obj);
+    public Projeto update(Projeto proj) {
+        Projeto newObj = find(proj.getId());
+        updateDadosProjecto(newObj, proj);
         return projetoRepository.save(newObj);
     }
 
@@ -54,14 +54,14 @@ public class ProjetoService {
         }
     }
 
-    public Projeto fromDTO(ProjetoNewDTO obj){
-        Cliente cli1 = clienteRepository.getOne(obj.getId());
-        Projeto p1 = new Projeto(obj.getDescricao(),cli1,obj.getDtIniPrevisto(),obj.getDtFimPrevisto());
+    public Projeto fromDTO(ProjetoNewDTO proj){
+        Cliente cli1 = clienteRepository.getOne(proj.getId());
+        Projeto p1 = new Projeto(proj.getDescricao(),cli1,proj.getDtIniPrevisto(),proj.getDtFimPrevisto());
         cli1.addProjecto(p1);
         return p1;
     }
-    private void updateDadosProjecto(Projeto newObj, Projeto obj) {
-        newObj.setDescricao(obj.getDescricao());
+    private void updateDadosProjecto(Projeto newObj, Projeto proj) {
+        newObj.setDescricao(proj.getDescricao());
     }
 
 }

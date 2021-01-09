@@ -19,21 +19,21 @@ public class ColaboradorService {
     private ColaboradorRepository colaboradorRepository;
 
     public Colaborador find(Integer id) {
-        Optional<Colaborador> obj = colaboradorRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
+        Optional<Colaborador> colab = colaboradorRepository.findById(id);
+        return colab.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Colaborador.class.getName()));
     }
     public List<Colaborador> findAll() {
         return colaboradorRepository.findAll();
     }
-    public Colaborador insert(Colaborador obj) {
-        obj.setId(null);
-        obj = colaboradorRepository.save(obj);
-        return obj;
+    public Colaborador insert(Colaborador colab) {
+        colab.setId(null);
+        colab = colaboradorRepository.save(colab);
+        return colab;
     }
-    public Colaborador update(Colaborador obj) {
-        Colaborador newObj = find(obj.getId());
-        updateDadosColaborador(newObj, obj);
+    public Colaborador update(Colaborador colab) {
+        Colaborador newObj = find(colab.getId());
+        updateDadosColaborador(newObj, colab);
         return colaboradorRepository.save(newObj);
     }
     public void delete(Integer id) {
@@ -45,8 +45,8 @@ public class ColaboradorService {
             throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
         }
     }
-    private void updateDadosColaborador(Colaborador newObj, Colaborador obj) {
-        newObj.setNome(obj.getNome());
-        newObj.setFuncao(obj.getFuncao());
+    private void updateDadosColaborador(Colaborador newObj, Colaborador colab) {
+        newObj.setNome(colab.getNome());
+        newObj.setFuncao(colab.getFuncao());
     }
 }
