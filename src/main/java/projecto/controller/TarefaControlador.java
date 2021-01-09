@@ -2,13 +2,14 @@ package projecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.Service.ProjetoService;
-import projecto.Service.TarefaService;
-import projecto.model.DTO.ProjetoNewDTO;
-import projecto.model.DTO.TarefaNewDTO;
-import projecto.model.Projeto;
+import projecto.service.TarefaService;
+import projecto.model.dto.TarefaNewDTO;
 import projecto.model.Tarefa;
 
 import javax.validation.Valid;
@@ -25,8 +26,8 @@ public class TarefaControlador {
 
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public ResponseEntity<Tarefa> find(@PathVariable Integer id) {
-        Tarefa obj = tarefaService.find(id);
-        return ResponseEntity.ok().body(obj);
+        Tarefa task = tarefaService.find(id);
+        return ResponseEntity.ok().body(task);
     }
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ResponseEntity<List<Tarefa>> findAll() {
@@ -34,8 +35,8 @@ public class TarefaControlador {
         return ResponseEntity.ok().body(tarefas);
     }
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody TarefaNewDTO obj ) {
-        Tarefa t1 = tarefaService.insert(obj);
+    public ResponseEntity<Void> insert(@Valid @RequestBody TarefaNewDTO task ) {
+        Tarefa t1 = tarefaService.insert(task);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(t1.getId()).toUri();
         return ResponseEntity.created(uri).build();

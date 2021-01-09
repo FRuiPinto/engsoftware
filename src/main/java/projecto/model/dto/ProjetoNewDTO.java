@@ -1,4 +1,4 @@
-package projecto.model.DTO;
+package projecto.model.dto;
 
 import lombok.Data;
 

@@ -1,9 +1,9 @@
 package projecto.model;
 
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 @Data
 @Embeddable

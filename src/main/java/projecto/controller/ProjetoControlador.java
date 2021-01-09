@@ -2,13 +2,16 @@ package projecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.Repositories.FuncaoColaboradorRepository;
-import projecto.Service.ProjetoService;
-import projecto.model.Colaborador;
-import projecto.model.DTO.ProjetoNewDTO;
-import projecto.model.Enum.Funcao;
+import projecto.repositories.FuncaoColaboradorRepository;
+import projecto.service.ProjetoService;
+import projecto.model.dto.ProjetoNewDTO;
 import projecto.model.FuncaoColaborador;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
@@ -27,8 +30,8 @@ public class ProjetoControlador {
     private FuncaoColaboradorRepository funcaoColaboradorRepository;
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public ResponseEntity<Projeto> find(@PathVariable Integer id) {
-        Projeto obj = projetoService.find(id);
-        return ResponseEntity.ok().body(obj);
+        Projeto proj = projetoService.find(id);
+        return ResponseEntity.ok().body(proj);
     }
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ResponseEntity<List<Projeto>> findAll() {
@@ -36,11 +39,18 @@ public class ProjetoControlador {
         return ResponseEntity.ok().body(projetos);
     }
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ProjetoNewDTO obj ) {
-        Projeto p1 = projetoService.insert(obj);
+    public ResponseEntity<Void> insert(@Valid @RequestBody ProjetoNewDTO proj ) {
+        Projeto p1 = projetoService.insert(proj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(p1.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@Valid @RequestBody Projeto proj, @PathVariable Integer id) {
+        proj.setId(id);
+        proj = projetoService.update(proj);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)

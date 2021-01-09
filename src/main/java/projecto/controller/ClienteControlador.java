@@ -2,10 +2,14 @@ package projecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.Repositories.ProjetoRepository;
-import projecto.Service.ClienteService;
+import projecto.repositories.ProjetoRepository;
+import projecto.service.ClienteService;
 import projecto.model.Cliente;
 import projecto.model.Projeto;
 
@@ -24,7 +28,6 @@ public class ClienteControlador {
      select * from cliente;
      */
 
-
     @Autowired
     private ClienteService clienteService;
     @Autowired
@@ -32,8 +35,8 @@ public class ClienteControlador {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> find(@PathVariable Integer id) {
-        Cliente obj = clienteService.find(id);
-        return ResponseEntity.ok().body(obj);
+        Cliente Client = clienteService.find(id);
+        return ResponseEntity.ok().body(Client);
     }
 
 
@@ -44,17 +47,17 @@ public class ClienteControlador {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody Cliente obj) {
-        obj = clienteService.insert(obj);
+    public ResponseEntity<Void> insert(@Valid @RequestBody Cliente Client) {
+        Client = clienteService.insert(Client);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+                .path("/{id}").buildAndExpand(Client.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody Cliente obj, @PathVariable Integer id) {
-        obj.setId(id);
-        obj = clienteService.update(obj);
+    public ResponseEntity<Void> update(@Valid @RequestBody Cliente Client, @PathVariable Integer id) {
+        Client.setId(id);
+        Client = clienteService.update(Client);
         return ResponseEntity.noContent().build();
     }
 
