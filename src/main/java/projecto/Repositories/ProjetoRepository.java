@@ -14,18 +14,23 @@ public interface ProjetoRepository extends JpaRepository<Projeto, Integer> {
     )
     List<Projeto> projetoCliente(Integer id);
 
-
-    /*
-    SELECT sum(f.valor_hora) FROM COLABORADOR c, TAREFA t, FUNCAO f
-WHERE c.id_colaborador=t.id_colaborador
-AND f.cod=c.funcao
-AND t.id_projeto=5;
-
-
-     */
-
     @Query(
             value = "  SELECT sum(f.valorHora) FROM Colaborador as c, Tarefa as t, FuncaoColaborador as f WHERE c.id=t.colaborador.id AND f.cod=c.funcao AND t.projeto.id=:id"
     )
     Double projetoValor(Integer id);
+
+    @Query(
+            value = "select sum(t.horasPrevistas) from Tarefa as t where t.projeto.id = :id"
+    )
+    Double projectoTempoHorasPrevistas(Integer id);
+
+    @Query(
+            value = "select  sum(t.tarefaEvolucao.horasExecutadas)  from Tarefa as t where t.projeto.id = :id"
+    )
+    Double projectoTempoHorasHorasExecutadas(Integer id);
+
+    @Query(
+            value = "select sum(t.tarefaEvolucao.perceExecutadas) from Tarefa as t where t.projeto.id = :id"
+    )
+    Double projectoTempoHorasPercentagemExecutada(Integer id);
 }

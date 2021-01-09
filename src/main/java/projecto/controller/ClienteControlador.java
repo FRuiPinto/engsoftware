@@ -75,4 +75,12 @@ public class ClienteControlador {
         String resposta = "O valor do projeto "+ id + " é de " + valor;
         return ResponseEntity.ok().body(resposta);
     }
+    @RequestMapping(value = "/projeto/{id}/tempo", method = RequestMethod.GET)
+    public ResponseEntity<String> clientesProjectoTemp(@PathVariable Integer id) {
+        Double horasPrevistas = projetoRepository.projectoTempoHorasPrevistas(id);
+        Double horasHorasExecutadas = projetoRepository.projectoTempoHorasHorasExecutadas(id);
+        Double projectoTempoHorasPercentagemExecutada = projetoRepository.projectoTempoHorasPercentagemExecutada(id);
+        String resposta = "Horas previstas "+ horasPrevistas+ " foram executadas " +horasHorasExecutadas + " percentagem da tarefa é de " +projectoTempoHorasPercentagemExecutada + "%";
+        return ResponseEntity.ok().body(resposta);
+    }
 }
