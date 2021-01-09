@@ -60,4 +60,9 @@ public class TarefaService {
         return t1;
     }
 
+    public void updateHoras(Integer id , Integer horas) {
+        Optional<Tarefa> t = tarefaRepository.findById(id);
+
+        t.get().getTarefaEvolucao().setHorasExecutadas(horas);
+    }
 }

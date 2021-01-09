@@ -21,4 +21,7 @@ public class TarefaEvolucao implements Serializable {
         this.horasExecutadas=0;
     }
 
+    public void setHorasExecutadas(Integer horas){
+        this.horasExecutadas += horas;
+    }
 }
