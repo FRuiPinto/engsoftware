@@ -3,7 +3,7 @@ package projecto.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import projecto.Repositories.ClienteRepository;
+import projecto.repositories.ClienteRepository;
 import projecto.model.Cliente;
 
 import java.util.List;

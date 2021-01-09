@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.Service.TarefaService;
-import projecto.model.DTO.TarefaNewDTO;
+import projecto.service.TarefaService;
+import projecto.model.dto.TarefaNewDTO;
 import projecto.model.Tarefa;
 
 import javax.validation.Valid;

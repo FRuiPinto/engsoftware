@@ -1,11 +1,11 @@
-package projecto.Service;
+package projecto.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import projecto.Repositories.ClienteRepository;
-import projecto.Service.Exception.DataIntegrityException;
-import projecto.Service.Exception.ObjectNotFoundException;
+import projecto.repositories.ClienteRepository;
+import projecto.service.exception.DataIntegrityException;
+import projecto.service.exception.ObjectNotFoundException;
 import projecto.model.Cliente;
 
 import java.util.List;
