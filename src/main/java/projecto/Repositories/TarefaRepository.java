@@ -6,4 +6,6 @@ import projecto.model.Tarefa;
 
 @Repository
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
+
+
 }

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import projecto.Repositories.ProjetoRepository;
 import projecto.Service.ClienteService;
 import projecto.model.Cliente;
+import projecto.model.Projeto;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -25,12 +27,15 @@ public class ClienteControlador {
 
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private ProjetoRepository projetoRepository;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> find(@PathVariable Integer id) {
         Cliente obj = clienteService.find(id);
         return ResponseEntity.ok().body(obj);
     }
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Cliente>> findAll() {
@@ -59,5 +64,15 @@ public class ClienteControlador {
         return ResponseEntity.noContent().build();
     }
 
-
+    @RequestMapping(value = "/clienteProject/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Projeto>> clientesProjecto(@PathVariable Integer id) {
+        List<Projeto> projetos = projetoRepository.projetoCliente(id);
+        return ResponseEntity.ok().body(projetos);
+    }
+    @RequestMapping(value = "/projeto/{id}/valor", method = RequestMethod.GET)
+    public ResponseEntity<String> clientesProjectoValor(@PathVariable Integer id) {
+        Double valor = projetoRepository.projetoValor(id);
+        String resposta = "O valor do projeto "+ id + " é de " + valor;
+        return ResponseEntity.ok().body(resposta);
+    }
 }

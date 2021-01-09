@@ -25,7 +25,7 @@ public class ProjetoService {
     public Projeto find(Integer id) {
         Optional<Projeto> obj = projetoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Projeto.class.getName()));
+                "Objeto não encontrado! Id: " + id ));
     }
 
     public List<Projeto> findAll() {
@@ -50,7 +50,7 @@ public class ProjetoService {
 
     public Projeto fromDTO(ProjetoNewDTO obj){
         Cliente cli1 = clienteRepository.getOne(obj.getId());
-        Projeto p1 = new Projeto(obj.getDescricao(),cli1);
+        Projeto p1 = new Projeto(obj.getDescricao(),cli1,obj.getDtIniPrevisto(),obj.getDtFimPrevisto());
         cli1.addProjecto(p1);
         return p1;
     }

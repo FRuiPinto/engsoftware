@@ -4,20 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import projecto.Repositories.FuncaoColaboradorRepository;
 import projecto.Service.ProjetoService;
+import projecto.model.Colaborador;
 import projecto.model.DTO.ProjetoNewDTO;
+import projecto.model.Enum.Funcao;
+import projecto.model.FuncaoColaborador;
 import projecto.model.Projeto;
+import projecto.model.Tarefa;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/projeto")
 public class ProjetoControlador {
     @Autowired
     private ProjetoService projetoService;
-
+    @Autowired
+    private FuncaoColaboradorRepository funcaoColaboradorRepository;
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public ResponseEntity<Projeto> find(@PathVariable Integer id) {
         Projeto obj = projetoService.find(id);
@@ -40,5 +47,27 @@ public class ProjetoControlador {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         projetoService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping(value ="/{id}/valor")
+    public String findProjetoInfoPreco(@PathVariable Integer id){
+        Projeto p1 = projetoService.find(id);
+        Double valor = 0.0;
+        if(p1.getId() != null){
+           for(Tarefa t : p1.getListaTarefas()){
+               //Funcao f = Funcao.toEnum(t.getColaborador().getFuncao().getValorHora());
+               Optional<FuncaoColaborador> a = funcaoColaboradorRepository.findById(t.getColaborador().getId());
+               valor +=a.get().getValorHora() ;
+           }
+           return "Projecto " + p1.getId() + " tem um valor de  " + valor;
+        }
+        return "Projecto não encontrado";
+    }
+    public String findProjetoInfoTempo(Integer id){
+        Projeto p1 = projetoService.find(id);
+        Double valor = 0.0;
+        if(p1 != null){
+           return "Projecto tem uma duração de " + p1.getId() + " tem um valor de  " + valor;
+        }
+        return "Projecto não encontrado";
     }
 }

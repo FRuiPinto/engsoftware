@@ -37,9 +37,6 @@ public class TarefaService {
     public Tarefa insert(TarefaNewDTO obj) {
         Tarefa t1 = fromDTO(obj);
         t1 = tarefaRepository.save(t1);
-     /*   TarefaEvolucao te1 = new TarefaEvolucao(t1.getId());
-        t1.setTarefaEvolucao(te1);
-        te1 = tarefaEvolucaoRepository.save(te1);*/
         return t1;
     }
 

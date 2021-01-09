@@ -2,6 +2,8 @@ package projecto.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import projecto.model.Enum.Funcao;
 
 import javax.persistence.*;
@@ -11,11 +13,14 @@ import java.util.Set;
 
 @Entity
 @Data
+@Getter
+@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "colaborador")
 public class Colaborador implements Serializable {
 
     private static final long versionUID = 1L;
+
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +28,7 @@ public class Colaborador implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
+
     @Column(name = "funcao")
     private Integer funcao;
 
@@ -34,9 +40,10 @@ public class Colaborador implements Serializable {
 
     public Colaborador(){}
 
-    public Colaborador(String nome, Funcao funcao) {
+    public Colaborador(String nome, Integer funcao) {
         this.nome=nome;
-        this.funcao = funcao.getCod();
+        //  this.funcao = funcao.getCod();
+        this.funcao = funcao;
         this.ativo = true;
     }
     public void addTarefa(Tarefa tarefa){

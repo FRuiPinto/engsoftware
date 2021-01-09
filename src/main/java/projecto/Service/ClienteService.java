@@ -53,4 +53,6 @@ public class ClienteService {
         newObj.setNome(obj.getNome());
         newObj.setNif(obj.getNif());
     }
+
+
 }

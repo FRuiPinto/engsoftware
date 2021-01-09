@@ -4,19 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.web.ProjectedPayload;
 import projecto.Repositories.*;
-import projecto.model.Cliente;
-import projecto.model.Colaborador;
+import projecto.model.*;
 import projecto.model.Enum.Funcao;
-import projecto.model.Projeto;
-import projecto.model.Tarefa;
-import projecto.model.TarefaEvolucao;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 
+@EnableSwagger2
 @SpringBootApplication
 public class EngsoftApplication implements CommandLineRunner {
 
@@ -29,7 +31,8 @@ public class EngsoftApplication implements CommandLineRunner {
     private ProjetoRepository projetoRepository;
     @Autowired
     private TarefaRepository tarefaRepository;
-
+    @Autowired
+    private FuncaoColaboradorRepository funcaoColaboradorRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(EngsoftApplication.class, args);
@@ -38,11 +41,18 @@ public class EngsoftApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Colaborador c1 = new Colaborador("Fábio Pinto", Funcao.AJUNIOR);
-        Colaborador c2 = new Colaborador("Rui Moreira", Funcao.AJUNIOR);
-        Colaborador c3 = new Colaborador("Leonel Ferreira", Funcao.DJUNIOR);
-        Colaborador c4 = new Colaborador("Jorge Ferreira", Funcao.DJUNIOR);
-        Colaborador c5 = new Colaborador("Tiago Correia", Funcao.ASENIOR);
+        FuncaoColaborador AJUNIOR = new FuncaoColaborador(1, "Analista Junior", 20.0);
+        FuncaoColaborador ASENIOR = new FuncaoColaborador(2, "Analista Senior", 80.0);
+        FuncaoColaborador DJUNIOR = new FuncaoColaborador(3, "Desenvolvedor Junior", 10.0);
+        FuncaoColaborador DSENIOR = new FuncaoColaborador(4, "Desenvolvedor Senior", 40.0);
+        FuncaoColaborador GPROJETO = new FuncaoColaborador(5, "Gestor de Projecto", 100.0);
+        funcaoColaboradorRepository.saveAll(Arrays.asList(AJUNIOR, ASENIOR, DJUNIOR, DSENIOR, GPROJETO));
+
+        Colaborador c1 = new Colaborador("Fábio Pinto", AJUNIOR.getCod());
+        Colaborador c2 = new Colaborador("Rui Moreira", ASENIOR.getCod());
+        Colaborador c3 = new Colaborador("Leonel Ferreira", DSENIOR.getCod());
+        Colaborador c4 = new Colaborador("Jorge Ferreira", DJUNIOR.getCod());
+        Colaborador c5 = new Colaborador("Tiago Correia", GPROJETO.getCod());
         colaboradorRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
 
         Cliente cli1 = new Cliente("Filipe Silva", "123");
@@ -53,13 +63,13 @@ public class EngsoftApplication implements CommandLineRunner {
 
         clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5));
 
-        Projeto p1 = new Projeto("Gestor de documentos", cli1);
-        Projeto p2 = new Projeto("Gestão de RH", cli2);
-        Projeto p3 = new Projeto("Gestão de Vencimentos", cli3);
-        Projeto p4 = new Projeto("Gestão de Viaturas", cli4);
-        Projeto p5 = new Projeto("Aplicação mobile", cli5);
-        Projeto p6 = new Projeto("Aplicação mobile", cli1);
-        Projeto p7 = new Projeto("Aplicação mobile", cli1);
+        Projeto p1 =new Projeto("Gestor de documentos", cli1,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
+        Projeto p2 = new Projeto("Gestão de RH", cli2,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
+        Projeto p3 = new Projeto("Gestão de Vencimentos", cli3,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
+        Projeto p4 = new Projeto("Gestão de Viaturas", cli4,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
+        Projeto p5 = new Projeto("Aplicação mobile", cli5,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
+        Projeto p6 = new Projeto("Aplicação mobile", cli1,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
+        Projeto p7 = new Projeto("Aplicação mobile", cli1,LocalDate.of(2020, 9, 20),LocalDate.of(2020, 9, 20));
 
         cli1.getListaProjectos().addAll(Arrays.asList(p1, p6));
         cli2.getListaProjectos().addAll(Arrays.asList(p2));
@@ -67,6 +77,7 @@ public class EngsoftApplication implements CommandLineRunner {
         cli4.getListaProjectos().addAll(Arrays.asList(p4));
         cli5.getListaProjectos().addAll(Arrays.asList(p5));
         cli5.addProjecto(p7);
+
 
         projetoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
 
@@ -121,6 +132,12 @@ public class EngsoftApplication implements CommandLineRunner {
         Tarefa t49 = new Tarefa(LocalDate.of(2020, 8, 28), LocalDate.of(2020, 6, 7), "Administrative Officer", c3, p5, 101);
         Tarefa t50 = new Tarefa(LocalDate.of(2020, 5, 29), LocalDate.of(2020, 1, 2), "GIS Technical Architect", c3, p6, 175);
         tarefaRepository.saveAll(Arrays.asList(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50));
-  }
+    }
+
+    @Bean
+    public Docket productApi() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("projecto")).build();
+    }
 }
 

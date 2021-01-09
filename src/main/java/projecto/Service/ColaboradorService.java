@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import projecto.Repositories.ColaboradorRepository;
 import projecto.Service.Exception.DataIntegrityException;
 import projecto.Service.Exception.ObjectNotFoundException;
-import projecto.model.Cliente;
 import projecto.model.Colaborador;
 
 import java.util.List;
@@ -25,11 +24,9 @@ public class ColaboradorService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Colaborador.class.getName()));
     }
-
     public List<Colaborador> findAll() {
         return colaboradorRepository.findAll();
     }
-
     public Colaborador insert(Colaborador obj) {
         obj.setId(null);
         obj = colaboradorRepository.save(obj);
@@ -40,7 +37,6 @@ public class ColaboradorService {
         updateDadosColaborador(newObj, obj);
         return colaboradorRepository.save(newObj);
     }
-
     public void delete(Integer id) {
         find(id);
         try {

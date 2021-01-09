@@ -13,7 +13,7 @@ public class TarefaEvolucao implements Serializable {
     @Column(name = "horasexecutadas")
     private Integer horasExecutadas  ;
 
-    @Column(name = "precentagemhoras")
+    @Column(name = "percentagemhoras")
     private Integer perceExecutadas  ;
 
     public TarefaEvolucao(){

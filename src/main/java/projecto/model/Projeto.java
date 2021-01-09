@@ -1,6 +1,7 @@
 package projecto.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 @Data
@@ -31,6 +33,15 @@ public class Projeto implements Serializable {
     @OneToMany(mappedBy = "projeto")
     private Set<Tarefa> listaTarefas = new LinkedHashSet<>();
 
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    @Column(name = "datainicio")
+    private LocalDate dtIniPrevisto;
+
+    @Column(name = "datafim")
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    private LocalDate dtFimPrevisto;
+
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idCliente")
@@ -41,10 +52,12 @@ public class Projeto implements Serializable {
 
     public Projeto(){}
 
-    public Projeto( String descricao , Cliente cliente){
+    public Projeto( String descricao , Cliente cliente,LocalDate dtIniPrevisto, LocalDate dtFimPrevisto){
         this.descricao=descricao;
         this.cliente=cliente;
         this.ativo=true;
+        this.dtFimPrevisto=dtFimPrevisto;
+        this.dtIniPrevisto=dtIniPrevisto;
     }
 
     public void addTarefa(Tarefa tarefa){
