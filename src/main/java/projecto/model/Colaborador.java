@@ -37,6 +37,7 @@ public class Colaborador implements Serializable {
     @Column(name = "funcao")
     private Integer funcao;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "colaborador")
     private Set<Tarefa> listaTarefas = new LinkedHashSet<>();
 
