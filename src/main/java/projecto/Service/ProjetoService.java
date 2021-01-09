@@ -38,6 +38,12 @@ public class ProjetoService {
         return p1;
     }
 
+    public Projeto update(Projeto obj) {
+        Projeto newObj = find(obj.getId());
+        updateDadosProjecto(newObj, obj);
+        return projetoRepository.save(newObj);
+    }
+
     public void delete(Integer id) {
         find(id);
         try {
@@ -53,6 +59,9 @@ public class ProjetoService {
         Projeto p1 = new Projeto(obj.getDescricao(),cli1,obj.getDtIniPrevisto(),obj.getDtFimPrevisto());
         cli1.addProjecto(p1);
         return p1;
+    }
+    private void updateDadosProjecto(Projeto newObj, Projeto obj) {
+        newObj.setDescricao(obj.getDescricao());
     }
 
 }
