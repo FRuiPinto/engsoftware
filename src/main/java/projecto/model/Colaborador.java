@@ -1,5 +1,6 @@
 package projecto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class Colaborador implements Serializable {
     @Column(name = "funcao")
     private Integer funcao;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "colaborador")
     private Set<Tarefa> listaTarefas = new LinkedHashSet<>();
 
