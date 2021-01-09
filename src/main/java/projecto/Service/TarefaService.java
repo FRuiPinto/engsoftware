@@ -3,20 +3,19 @@ package projecto.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import projecto.Repositories.*;
+import projecto.Repositories.ColaboradorRepository;
+import projecto.Repositories.ProjetoRepository;
+import projecto.Repositories.TarefaRepository;
 import projecto.Service.Exception.DataIntegrityException;
 import projecto.Service.Exception.ObjectNotFoundException;
-import projecto.model.*;
-import projecto.model.DTO.ProjetoNewDTO;
+import projecto.model.Colaborador;
 import projecto.model.DTO.TarefaNewDTO;
+import projecto.model.Projeto;
+import projecto.model.Tarefa;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class TarefaService {
