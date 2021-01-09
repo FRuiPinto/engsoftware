@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.Repositories.ProjetoRepository;
-import projecto.Service.ClienteService;
+import projecto.repositories.ProjetoRepository;
+import projecto.service.ClienteService;
 import projecto.model.Cliente;
 import projecto.model.Projeto;
 

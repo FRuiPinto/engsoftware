@@ -1,4 +1,4 @@
-package projecto.Service.Exception;
+package projecto.service.exception;
 
 public class ObjectNotFoundException extends RuntimeException {
 

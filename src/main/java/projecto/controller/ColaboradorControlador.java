@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.Service.ColaboradorService;
+import projecto.service.ColaboradorService;
 import projecto.model.Colaborador;
 
 import javax.validation.Valid;

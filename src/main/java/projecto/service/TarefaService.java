@@ -1,15 +1,15 @@
-package projecto.Service;
+package projecto.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import projecto.Repositories.ColaboradorRepository;
-import projecto.Repositories.ProjetoRepository;
-import projecto.Repositories.TarefaRepository;
-import projecto.Service.Exception.DataIntegrityException;
-import projecto.Service.Exception.ObjectNotFoundException;
+import projecto.repositories.ColaboradorRepository;
+import projecto.repositories.ProjetoRepository;
+import projecto.repositories.TarefaRepository;
+import projecto.service.exception.DataIntegrityException;
+import projecto.service.exception.ObjectNotFoundException;
 import projecto.model.Colaborador;
-import projecto.model.DTO.TarefaNewDTO;
+import projecto.model.dto.TarefaNewDTO;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
 
