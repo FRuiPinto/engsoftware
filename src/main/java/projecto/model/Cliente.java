@@ -1,10 +1,11 @@
 package projecto.model;
 
-import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
+
+import org.jboss.logging.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;

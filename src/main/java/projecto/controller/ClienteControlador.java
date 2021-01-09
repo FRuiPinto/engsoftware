@@ -24,7 +24,6 @@ public class ClienteControlador {
      select * from cliente;
      */
 
-
     @Autowired
     private ClienteService clienteService;
     @Autowired
