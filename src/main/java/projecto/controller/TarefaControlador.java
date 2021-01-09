@@ -45,4 +45,9 @@ public class TarefaControlador {
         tarefaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    @RequestMapping(value="/{id}/{horas}", method=RequestMethod.PATCH)
+    public ResponseEntity<Void> uptadeHoras(@PathVariable Integer id,@PathVariable Integer horas) {
+        tarefaService.updateHoras(id);
+        return ResponseEntity.noContent().build();
+    }
 }
