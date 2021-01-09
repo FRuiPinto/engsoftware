@@ -3,7 +3,6 @@ package projecto.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import projecto.Repositories.ColaboradorRepository;
 import projecto.Service.Exception.DataIntegrityException;
 import projecto.Service.Exception.ObjectNotFoundException;
