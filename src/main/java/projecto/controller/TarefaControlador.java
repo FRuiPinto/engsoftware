@@ -26,8 +26,8 @@ public class TarefaControlador {
 
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public ResponseEntity<Tarefa> find(@PathVariable Integer id) {
-        Tarefa obj = tarefaService.find(id);
-        return ResponseEntity.ok().body(obj);
+        Tarefa task = tarefaService.find(id);
+        return ResponseEntity.ok().body(task);
     }
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ResponseEntity<List<Tarefa>> findAll() {
@@ -35,8 +35,8 @@ public class TarefaControlador {
         return ResponseEntity.ok().body(tarefas);
     }
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody TarefaNewDTO obj ) {
-        Tarefa t1 = tarefaService.insert(obj);
+    public ResponseEntity<Void> insert(@Valid @RequestBody TarefaNewDTO task ) {
+        Tarefa t1 = tarefaService.insert(task);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(t1.getId()).toUri();
         return ResponseEntity.created(uri).build();

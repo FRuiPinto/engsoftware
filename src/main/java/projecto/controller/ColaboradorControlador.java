@@ -28,8 +28,8 @@ public class ColaboradorControlador {
 
     @RequestMapping(value="/{id}", method= RequestMethod.GET)
     public ResponseEntity<Colaborador> find(@PathVariable Integer id) {
-        Colaborador obj = colaboradorService.find(id);
-        return ResponseEntity.ok().body(obj);
+        Colaborador Colab = colaboradorService.find(id);
+        return ResponseEntity.ok().body(Colab);
     }
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ResponseEntity<List<Colaborador>> findAll() {
@@ -37,16 +37,16 @@ public class ColaboradorControlador {
         return ResponseEntity.ok().body(colaboradores);
     }
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody Colaborador obj) {
-        obj = colaboradorService.insert(obj);
+    public ResponseEntity<Void> insert(@Valid @RequestBody Colaborador Colab) {
+        Colab = colaboradorService.insert(Colab);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+                .path("/{id}").buildAndExpand(Colab.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody Colaborador obj, @PathVariable Integer id) {
-        obj.setId(id);
-        obj = colaboradorService.update(obj);
+    public ResponseEntity<Void> update(@Valid @RequestBody Colaborador Colab, @PathVariable Integer id) {
+        Colab.setId(id);
+        Colab = colaboradorService.update(Colab);
         return ResponseEntity.noContent().build();
     }
 
