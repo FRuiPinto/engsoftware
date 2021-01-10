@@ -74,23 +74,15 @@
 			"response": []
 		},
 		{
-			"name": "Client | GET antes POST com ID",
+			"name": "Client DEL | GET antes POST com ID",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonData = pm.response.json();\r",
-							"if (pm.expect(pm.response.code).to.be.oneOf([500])){\r",
-							"    pm.test(`*** E R R O R *** ${jsonData.Message}`, () => {\r",
-							"        pm.expect(jsonData.Status).to.equal(\"ERROR\")\r",
-							"        pm.expect(jsonData.Message).to.be.oneOf(\"messages\")\r",
-							"    });\r",
-							"}else{\r",
-							"    pm.test(\"Elimina 1 cliente\", function() {\r",
-							"        pm.expect(jsonData).length == 1;\r",
-							"    });\r",
-							"}"
+							"pm.test(\"Elimina 1 cliente\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -99,6 +91,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"method\": \"DELETE\"\r\n}"
+				},
 				"url": {
 					"raw": "http://localhost:8080/cliente/5",
 					"protocol": "http",
@@ -376,23 +372,15 @@
 			"response": []
 		},
 		{
-			"name": "Colaborador | GET antes POST com ID",
+			"name": "Colaborador DEL | GET antes POST com ID",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonData = pm.response.json();\r",
-							"if (pm.expect(pm.response.code).to.be.oneOf([500])){\r",
-							"    pm.test(`*** E R R O R *** ${jsonData.Message}`, () => {\r",
-							"        pm.expect(jsonData.Status).to.equal(\"ERROR\")\r",
-							"        pm.expect(jsonData.Message).to.be.oneOf(\"messages\")\r",
-							"    });\r",
-							"}else{\r",
-							"    pm.test(`*** S U C C E S S *** ${jsonData.Message}`, () => {\r",
-							"        pm.expect(jsonData.Status).to.equal(\"SUCCESS\")\r",
-							"    });\r",
-							"}"
+							"pm.test(\"Elimina 1 colaborador\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -401,8 +389,12 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"method\": \"DELETE\"\r\n}"
+				},
 				"url": {
-					"raw": "http://localhost:8080/colaborador/6",
+					"raw": "http://localhost:8080/colaborador/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -410,7 +402,7 @@
 					"port": "8080",
 					"path": [
 						"colaborador",
-						"6"
+						"1"
 					]
 				}
 			},
@@ -552,6 +544,43 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projeto DEL | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Elimina 1 projeto\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"method\": \"DELETE\"\r\n}"
+				},
 				"url": {
 					"raw": "http://localhost:8080/projeto/6",
 					"protocol": "http",
@@ -749,6 +778,43 @@
 					"path": [
 						"tarefa",
 						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarefa DEL | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Elimina 1 tarefa\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"method\": \"DELETE\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tarefa/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tarefa",
+						"5"
 					]
 				}
 			},
