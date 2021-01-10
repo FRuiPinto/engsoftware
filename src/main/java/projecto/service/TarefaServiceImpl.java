@@ -1,7 +1,6 @@
 package projecto.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import projecto.model.Colaborador;
 import projecto.model.Projeto;

@@ -1,6 +1,5 @@
 package projecto.service;
 
-import org.springframework.stereotype.Service;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
 import projecto.model.dto.ProjetoNewDTO;
