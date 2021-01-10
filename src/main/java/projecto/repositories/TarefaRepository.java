@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
+    @Query( value = "SELECT T from Tarefa T where T.colaborador.id = :idColaborador")
     List<Tarefa> findAllByColaboradorId(Integer idColaborador);
 @Query("SELECT t FROM Tarefa t WHERE "
         +"(:ativo is null or t.ativo = :ativo) and (:descricao is null or t.descricao = :descricao)"

@@ -3,15 +3,15 @@ package projecto.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.repositories.ProjetoRepository;
-import projecto.service.ClienteService;
 import projecto.model.Cliente;
 import projecto.model.Projeto;
+import projecto.repositories.ProjetoRepository;
+import projecto.service.ClienteService;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -21,12 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/cliente")
 public class ClienteControlador {
-
-    /**
-     insert into cliente (nome,tipocliente) values('Rui','123312312');
-     insert into cliente (nome,tipocliente) values('Fabio','1234232');
-     select * from cliente;
-     */
 
     @Autowired
     private ClienteService clienteService;
