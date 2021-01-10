@@ -1,19 +1,27 @@
 <configuration>
     <property name="LOGS" value="./Logs"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+
     <appender name="LOGS" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_DIR}/tests.log</file>
+        <file>${LOGS}/tests.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>${LOG_PATTERN} %-4relative [%thread] %p %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
-    <root level="debug">
+
+    <logger name="org.springframework" level="info">
+        <appender-ref ref="LOGS" />
+    </logger>
+
+    <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
+

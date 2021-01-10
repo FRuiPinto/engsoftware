@@ -32,6 +32,7 @@ public class Colaborador implements Serializable {
     private Integer funcao;
 
     @OneToMany(mappedBy = "colaborador" ,cascade = CascadeType.ALL)
+
     private Set<Tarefa> listaTarefas = new LinkedHashSet<>();
 
     @Column(name = "ativo",nullable = false)
