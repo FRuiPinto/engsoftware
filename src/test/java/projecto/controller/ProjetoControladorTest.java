@@ -3,11 +3,13 @@ package projecto.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import projecto.model.Cliente;
 import projecto.repositories.ProjetoRepository;
 import projecto.model.Projeto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +21,9 @@ class ProjetoControladorTest {
 
     @Test
     void find() {
+        insert();
+        Optional<Projeto> proj = projetoRepository.findById(6);
+        assertEquals(6, proj.get().getId());
     }
 
     @Test

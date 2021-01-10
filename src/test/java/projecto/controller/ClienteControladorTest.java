@@ -7,6 +7,7 @@ import projecto.repositories.ClienteRepository;
 import projecto.model.Cliente;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +19,9 @@ class ClienteControladorTest {
 
     @Test
     void find() {
+        insert();
+        Optional<Cliente> cliente = clienteRepository.findById(6);
+        assertEquals(6, cliente.get().getId());
     }
 
     @Test
@@ -33,16 +37,23 @@ class ClienteControladorTest {
     @Test
     void insert() {
         Cliente cliente = new Cliente("Rui", "123456789");
-
         assertEquals(5, clienteRepository.count());
-
         clienteRepository.save(cliente);
-
         assertEquals(6, clienteRepository.count());
     }
 
     @Test
     void update() {
+        insert();
+        Optional<Cliente> cli1 = clienteRepository.findById(6);
+        assertEquals("123456789", cli1.get().getNif());
+
+        cli1.get().setNif("987654321");
+        clienteRepository.save(cli1.get());
+
+        Optional<Cliente> cli2 = clienteRepository.findById(6);
+        assertEquals("987654321", cli2.get().getNif());
+
     }
 
     @Test
