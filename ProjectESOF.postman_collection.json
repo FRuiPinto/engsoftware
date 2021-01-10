@@ -1,0 +1,842 @@
+{
+	"info": {
+		"_postman_id": "3cf1a696-5be2-478f-9a8c-d0996ee99f00",
+		"name": "ProjectESOF",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Client | GET antes POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê TODOS Clientes antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 Cliente antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"if (pm.expect(pm.response.code).to.be.oneOf([500])){\r",
+							"    pm.test(`*** E R R O R *** ${jsonData.Message}`, () => {\r",
+							"        pm.expect(jsonData.Status).to.equal(\"ERROR\")\r",
+							"        pm.expect(jsonData.Message).to.be.oneOf(\"messages\")\r",
+							"    });\r",
+							"}else{\r",
+							"    pm.test(\"Elimina 1 cliente\", function() {\r",
+							"        pm.expect(jsonData).length == 1;\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client | POST Inicial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cria 1 Cliente\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 10,\r\n    \"nome\": \"Filipesssss Silvaaaaa\",\r\n    \"nif\": \"123\",\r\n    \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cliente/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client | POST Mal Sucedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Repete criacao do cliente que ja existe\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Filipesssss Silvaaaaa\",\r\n    \"nif\": \"123\",\r\n    \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cliente/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client Project | GET com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 Projeto de Cliente\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/clienteProject/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"clienteProject",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client Project Tempo | GET com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 tempo Cliente Projeto\", function() {\r",
+							"    //var jsonData = pm.response.json();\r",
+							"    //pm.expect(jsonData).length == 1;\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    postman.setGlobalVariable(\"id\",(jsonData.results[0].token));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/projeto/2/tempo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"projeto",
+						"2",
+						"tempo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client Project Valor | GET com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 Cliente Projeto Valor\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/projeto/2/valor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"projeto",
+						"2",
+						"valor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Colaborador | GET antes POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê TODOS colaborador antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/colaborador/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"colaborador",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Colaborador | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 colaborador com ID\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/colaborador/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"colaborador",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Colaborador | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"if (pm.expect(pm.response.code).to.be.oneOf([500])){\r",
+							"    pm.test(`*** E R R O R *** ${jsonData.Message}`, () => {\r",
+							"        pm.expect(jsonData.Status).to.equal(\"ERROR\")\r",
+							"        pm.expect(jsonData.Message).to.be.oneOf(\"messages\")\r",
+							"    });\r",
+							"}else{\r",
+							"    pm.test(`*** S U C C E S S *** ${jsonData.Message}`, () => {\r",
+							"        pm.expect(jsonData.Status).to.equal(\"SUCCESS\")\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/colaborador/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"colaborador",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Colaborador | POST Inicial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cria 1 colaborador\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 6,\r\n    \"nome\": \"Ruiiii Carlossss\",\r\n    \"funcao\": 3,\r\n    \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/colaborador",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"colaborador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Colaborador | POST Mal Sucedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Repete criacao do colaborador que ja existe\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"nome\": \"Ruiiii Carlossss\",\r\n    \"funcao\": 2,\r\n    \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/colaborador/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"colaborador",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projeto | GET antes POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê TODOS projeto antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projeto | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 projeto antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projeto Valor | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê valor Cliente\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cliente/6/valor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cliente",
+						"6",
+						"valor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projeto | POST Inicial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cria 1 projeto\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"7\",\r\n   \"descricao\": \"Gestor de documentos\",\r\n    \"dtIniPrevisto\": \"2020/09/20\",\r\n    \"dtFimPrevisto\": \"2020/09/20\",\r\n    \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Projeto | POST Mal Sucedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Repete Projeto que ja existe\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"7\",\r\n   \"descricao\": \"Gestor de documentos\",\r\n    \"dtIniPrevisto\": \"2020/09/20\",\r\n    \"dtFimPrevisto\": \"2020/09/20\",\r\n    \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarefa | GET antes POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê TODOS projeto antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tarefa/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tarefa",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarefa | GET antes POST com ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Lê 1 Cliente antes de criar um novo\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).length == 1;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tarefa/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tarefa",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarefa | POST Inicial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cria 1 projeto\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 6,\r\n    \"dtIniPrevisto\": \"2020/06/15\",\r\n    \"dtFimPrevisto\": \"2020/10/30\",\r\n    \"horasPrevistas\": 151,\r\n    \"descricao\": \"Automation Specialist II\",\r\n    \"colaborador\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Fábio Pinto\",\r\n        \"funcao\": 1,\r\n        \"ativo\": true\r\n    },\r\n    \"ativo\": true,\r\n    \"tarefaEvolucao\": {\r\n        \"horasExecutadas\": 0,\r\n        \"perceExecutadas\": 0.0\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tarefa/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tarefa",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tarefa | POST Mal Sucedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Repete Projeto que ja existe\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 6,\r\n    \"dtIniPrevisto\": \"2020/06/15\",\r\n    \"dtFimPrevisto\": \"2020/10/30\",\r\n    \"horasPrevistas\": 151,\r\n    \"descricao\": \"Automation Specialist II\",\r\n    \"colaborador\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Fábio Pinto\",\r\n        \"funcao\": 1,\r\n        \"ativo\": true\r\n    },\r\n    \"ativo\": true,\r\n    \"tarefaEvolucao\": {\r\n        \"horasExecutadas\": 0,\r\n        \"perceExecutadas\": 0.0\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tarefa/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tarefa",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
