@@ -51,6 +51,7 @@ public class Tarefa implements Serializable {
     @JoinColumn(name = "idProjeto")
     private Projeto projeto;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idColaborador")
     private Colaborador colaborador;
@@ -80,6 +81,16 @@ public class Tarefa implements Serializable {
         this.colaborador = col;
         this.horasPrevistas=horasPrevistas;
         col.getListaTarefas().add(this);
+        this.ativo = true;
+        this.tarefaEvolucao = new TarefaEvolucao();
+    }
+    public Tarefa(LocalDate inicio, LocalDate fim, String descricao, Projeto projeto, Integer horasPrevistas) {
+        this.dtIniPrevisto = inicio;
+        this.dtFimPrevisto = fim;
+        this.descricao = descricao;
+        this.projeto = projeto;
+        this.colaborador = null;
+        this.horasPrevistas=horasPrevistas;
         this.ativo = true;
         this.tarefaEvolucao = new TarefaEvolucao();
     }

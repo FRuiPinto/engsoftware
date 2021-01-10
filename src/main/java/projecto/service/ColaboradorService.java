@@ -3,7 +3,9 @@ package projecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import projecto.model.Tarefa;
 import projecto.repositories.ColaboradorRepository;
+import projecto.repositories.TarefaRepository;
 import projecto.service.exception.DataIntegrityException;
 import projecto.service.exception.ObjectNotFoundException;
 import projecto.model.Colaborador;
@@ -15,9 +17,14 @@ import java.util.Optional;
 public class ColaboradorService {
 
 
-    @Autowired
-    private ColaboradorRepository colaboradorRepository;
+    private final ColaboradorRepository colaboradorRepository;
+    private final TarefaRepository tarefaRepository;
 
+    @Autowired
+    public ColaboradorService(ColaboradorRepository colaboradorRepository,TarefaRepository tarefaRepository){
+        this.colaboradorRepository=colaboradorRepository;
+        this.tarefaRepository = tarefaRepository;
+    }
     public Colaborador find(Integer id) {
         Optional<Colaborador> colab = colaboradorRepository.findById(id);
         return colab.orElseThrow(() -> new ObjectNotFoundException(
@@ -39,6 +46,11 @@ public class ColaboradorService {
     public void delete(Integer id) {
         find(id);
         try {
+            List<Tarefa> tarefas = tarefaRepository.findAllByColaboradorId(id);
+            for(Tarefa t : tarefas){
+                t.setColaborador(null);
+                tarefaRepository.save(t);
+            }
             colaboradorRepository.deleteById(id);
         }
         catch (DataIntegrityViolationException e) {

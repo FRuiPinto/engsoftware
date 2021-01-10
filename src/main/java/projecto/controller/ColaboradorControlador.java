@@ -18,11 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value="/colaborador")
 public class ColaboradorControlador {
-    /*
-    INSERT INTO COLABORADOR (funcao,nome) VALUES(1,'Rui' );
-    INSERT INTO COLABORADOR (funcao,nome) values(2,'Fabio');
-    select * from colaborador;
-    */
+
     @Autowired
     private ColaboradorService colaboradorService;
 
@@ -49,10 +45,10 @@ public class ColaboradorControlador {
         Colab = colaboradorService.update(Colab);
         return ResponseEntity.noContent().build();
     }
-
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         colaboradorService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    
 }
