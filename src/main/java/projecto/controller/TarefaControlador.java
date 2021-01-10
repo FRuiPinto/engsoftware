@@ -1,4 +1,5 @@
 package projecto.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +42,7 @@ public class TarefaControlador {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping()
     private ResponseEntity<List<Tarefa>> findAll(){
         List<Tarefa> tarefaList = tarefaService.findAll();
@@ -50,21 +52,25 @@ public class TarefaControlador {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping
     private ResponseEntity<Tarefa> criaTarefa(@RequestBody TarefaNewDTO projeto){
         Optional<Tarefa> tarefaNovo = tarefaService.createTarefa(projeto);
         return tarefaNovo.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @RequestMapping(value = "/{tarefaId}", method = RequestMethod.DELETE)
     private ResponseEntity<Void> deleteTarefa(@PathVariable Integer tarefaId){
         tarefaService.deleteTarefa(tarefaId);
         return ResponseEntity.noContent().build();
     }
+
     @PatchMapping("/updateHoras")
     private ResponseEntity<Tarefa> updateHorasTarefa(@RequestParam(value="idTarefa") Integer idTarefa,@RequestParam(value="horas") Integer horas){
         Optional<Tarefa> tarefaOptional = tarefaService.updateTarefaHoras(idTarefa,horas);
         return tarefaOptional.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @PatchMapping("/updateColaborador")
     private ResponseEntity<Tarefa> updateColadorador(@RequestParam() Integer idTarefa,@RequestParam() Integer novoColaborador,@RequestParam( required = false) Integer antigoColaborador){
         if(antigoColaborador == null){
@@ -73,6 +79,7 @@ public class TarefaControlador {
         Optional<Tarefa> tarefaOptional = tarefaService.trocaColadoradores(idTarefa,novoColaborador,antigoColaborador);
         return tarefaOptional.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @GetMapping("/filter")
     private ResponseEntity<List<Tarefa>> filterTarefas(
             @RequestParam(required = false) Boolean ativo
