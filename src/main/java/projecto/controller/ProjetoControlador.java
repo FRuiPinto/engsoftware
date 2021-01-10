@@ -2,82 +2,57 @@ package projecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projecto.repositories.FuncaoColaboradorRepository;
-import projecto.service.ProjetoService;
-import projecto.model.dto.ProjetoNewDTO;
-import projecto.model.FuncaoColaborador;
+import org.springframework.web.bind.annotation.*;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
+import projecto.model.dto.ProjetoNewDTO;
+import projecto.service.ProjetoService;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/projeto")
 public class ProjetoControlador {
-    @Autowired
-    private ProjetoService projetoService;
-    @Autowired
-    private FuncaoColaboradorRepository funcaoColaboradorRepository;
-    @RequestMapping(value="/{id}", method= RequestMethod.GET)
-    public ResponseEntity<Projeto> find(@PathVariable Integer id) {
-        Projeto proj = projetoService.find(id);
-        return ResponseEntity.ok().body(proj);
-    }
-    @RequestMapping(value="/", method= RequestMethod.GET)
-    public ResponseEntity<List<Projeto>> findAll() {
-        List<Projeto> projetos = projetoService.findAll();
-        return ResponseEntity.ok().body(projetos);
-    }
-    @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ProjetoNewDTO proj ) {
-        Projeto p1 = projetoService.insert(proj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(p1.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-    }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody Projeto proj, @PathVariable Integer id) {
-        proj.setId(id);
-        proj = projetoService.update(proj);
+    private final ProjetoService projetoService;
+
+    @Autowired
+    public ProjetoControlador(ProjetoService projetoService) {
+        this.projetoService = projetoService;
+    }
+    @GetMapping(value = "/{idProjecto}")
+    private ResponseEntity<Projeto> find(@PathVariable Integer idProjecto){
+        Optional<Projeto> projetoTemp = projetoService.findById(idProjecto);
+        if(projetoTemp.isPresent()){
+            return ResponseEntity.ok().body(projetoTemp.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping()
+    private ResponseEntity<List<Projeto>> findAll(){
+        List<Projeto> projetoList = projetoService.findAll();
+        if(projetoList.size() > 0){
+            return ResponseEntity.ok().body(projetoList);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PostMapping
+    private ResponseEntity<Projeto> criaProjecto(@RequestBody ProjetoNewDTO projeto){
+        Optional<Projeto> projetoNovo = projetoService.createProjecto(projeto);
+        return projetoNovo.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @RequestMapping(value = "/{idProjecto}", method = RequestMethod.DELETE)
+    private ResponseEntity<Void> deleteProjeto(@PathVariable Integer idProjecto){
+        projetoService.deleteProjeto(idProjecto);
         return ResponseEntity.noContent().build();
     }
-
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        projetoService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-    @GetMapping(value ="/{id}/valor")
-    public String findProjetoInfoPreco(@PathVariable Integer id){
-        Projeto p1 = projetoService.find(id);
-        Double valor = 0.0;
-        if(p1.getId() != null){
-           for(Tarefa t : p1.getListaTarefas()){
-               //Funcao f = Funcao.toEnum(t.getColaborador().getFuncao().getValorHora());
-               Optional<FuncaoColaborador> a = funcaoColaboradorRepository.findById(t.getColaborador().getId());
-               valor +=a.get().getValorHora() ;
-           }
-           return "Projecto " + p1.getId() + " tem um valor de  " + valor;
-        }
-        return "Projecto não encontrado";
-    }
-    public String findProjetoInfoTempo(Integer id){
-        Projeto p1 = projetoService.find(id);
-        Double valor = 0.0;
-        if(p1 != null){
-           return "Projecto tem uma duração de " + p1.getId() + " tem um valor de  " + valor;
-        }
-        return "Projecto não encontrado";
+    @PatchMapping
+    private ResponseEntity<Projeto> insereTarefa(@RequestBody Tarefa tarefa){
+        Optional<Projeto> projetoNovo = projetoService.insereTarefa(tarefa);
+        return projetoNovo.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
+

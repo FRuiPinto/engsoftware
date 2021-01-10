@@ -9,15 +9,16 @@ public class ProjetoNewDTO {
 
     private static final long versionUID = 1L;
 
-    private Integer id;
+    private Integer idCliente;
     private String descricao;
     private LocalDate dtIniPrevisto;
     private LocalDate dtFimPrevisto;
 
-    public ProjetoNewDTO(Integer id, String projetoDescricao, LocalDate dtIniPrevisto, LocalDate dtFimPrevisto){
-        this.id = id;
+    public ProjetoNewDTO(Integer idCliente, String projetoDescricao, LocalDate dtIniPrevisto, LocalDate dtFimPrevisto){
+        this.idCliente = idCliente;
         this.descricao = projetoDescricao;
         this.dtIniPrevisto = dtIniPrevisto;
         this.dtFimPrevisto = dtFimPrevisto;
     }
+    public ProjetoNewDTO(){}
 }
