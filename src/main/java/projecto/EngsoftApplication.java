@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-@EnableSwagger2
 @SpringBootApplication
 public class EngsoftApplication implements CommandLineRunner {
 
@@ -135,10 +134,5 @@ public class EngsoftApplication implements CommandLineRunner {
 
     }
 
-    @Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("projecto")).build();
-    }
 }
 

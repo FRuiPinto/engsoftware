@@ -67,7 +67,7 @@ public class TarefaServiceImpl implements TarefaService {
             double percentagem = (double) (horas * 100) / tarefaOptional.get().getHorasPrevistas();
             if (tarefaOptional.get().getTarefaEvolucao().getHorasExecutadas() + horas >= 100) {
                 tarefaOptional.get().setAtivo(false);
-                tarefaOptional.get().getTarefaEvolucao().setPerceExecutadas(100.0);
+                tarefaOptional.get().updateHoras(100);
                 tarefaOptional.get().getTarefaEvolucao().setHorasExecutadas(tarefaOptional.get().getHorasPrevistas());
 
             } else {
@@ -83,21 +83,15 @@ public class TarefaServiceImpl implements TarefaService {
 
     @Override
     public Optional<Tarefa> trocaColadoradores(Integer idTarefa, Integer novoColaborador, Integer antigoColaborador) {
-        Optional<Colaborador> optionalColaboradorAntigo = colaboradorRepository.findById(antigoColaborador);
         Optional<Colaborador> optionalColaboradorNovo = colaboradorRepository.findById(novoColaborador);
         Optional<Tarefa> tarefaOptional = tarefaRepository.findById(idTarefa);
-        if (optionalColaboradorAntigo.isEmpty() && optionalColaboradorNovo.isPresent() && tarefaOptional.isPresent()) {
+        if(tarefaOptional.isPresent() && optionalColaboradorNovo.isPresent()){
+            if(tarefaOptional.get().getColaborador() == null){
+                // update utilizador
+            }
             tarefaOptional.get().setColaborador(optionalColaboradorNovo.get());
             tarefaRepository.save(tarefaOptional.get());
             return tarefaOptional;
-
-        } else if (optionalColaboradorAntigo.isPresent() && optionalColaboradorNovo.isPresent() && tarefaOptional.isPresent()) {
-            if (tarefaOptional.get().getColaborador().getId().equals(antigoColaborador)) {
-                tarefaOptional.get().setColaborador(optionalColaboradorNovo.get());
-                tarefaRepository.save(tarefaOptional.get());
-                return tarefaOptional;
-            }
-            return Optional.empty();
         }
         return Optional.empty();
     }
