@@ -1,48 +1,88 @@
 package projecto.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import projecto.model.Cliente;
 import projecto.model.Colaborador;
 import projecto.repositories.ColaboradorRepository;
+import projecto.service.ClienteService;
+import projecto.service.ColaboradorService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DataJpaTest
+@WebMvcTest(ColaboradorControlador.class)
 class ColaboradorControladorTest {
 
     @Autowired
-    private ColaboradorRepository colaboradorRepository;
+    private MockMvc mockMvc;
+
+    @MockBean
+    private ColaboradorService colaboradorService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
-    void find() {
-        insert();
-        Optional<Colaborador> colab = colaboradorRepository.findById(1);
-        assertEquals(1, colab.get().getId());
+    void find() throws Exception {
+        Colaborador colaborador=new Colaborador();
+        String colaboradorAsJsonString=new ObjectMapper().writeValueAsString(colaborador);
+
+        when(colaboradorService.find(1)).thenReturn(colaborador);
+
+        String httpResponseAsString=mockMvc.perform(get("/colaborador/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertNotNull(httpResponseAsString);
+
+        mockMvc.perform(get("/colaborador/2")).andExpect(status().isNotFound());
     }
 
     @Test
-    void findAll() {
-        insert();
-        assertEquals(6, colaboradorRepository.count());
+    void findAll() throws Exception {
+        Colaborador colaborador1=new Colaborador();
+        Colaborador colaborador2=new Colaborador();
+        Colaborador colaborador3=new Colaborador();
 
-        List<Colaborador> colab = colaboradorRepository.findAll();
+        List<Colaborador> colaboradores= Arrays.asList(colaborador1,colaborador2,colaborador3);
 
-        assertEquals(6, colab.size());
+        when(colaboradorService.findAll()).thenReturn(colaboradores);
+
+        String httpResponseAsString=mockMvc.perform(get("/colaborador")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertNotNull(httpResponseAsString);
+
     }
 
     @Test
-    void insert() {
-        Colaborador colab = new Colaborador("Colaborador Teste", 2);
+    void insert() throws Exception {
+        Colaborador colaborador=new Colaborador();
+        colaborador.setNome("Novo Colaborador");
+        colaborador.setFuncao(3);
 
-        assertEquals(5, colaboradorRepository.count());
+        when(this.colaboradorService.insert(colaborador)).thenReturn(colaborador);
 
-        colaboradorRepository.save(colab);
+        String clienteAsJsonString=new ObjectMapper().writeValueAsString(colaborador);
 
-        assertEquals(6, colaboradorRepository.count());
+        mockMvc.perform(post("/colaborador").content(clienteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+        Colaborador colaboradorExistente=new Colaborador();
+        colaborador.setNome("Novo Colaborador");
+        colaborador.setFuncao(3);
+        String colaboradorExistenteAsJsonString=new ObjectMapper().writeValueAsString(colaboradorExistente);
+
+        mockMvc.perform(post("/colaborador").content(colaboradorExistenteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -52,10 +92,6 @@ class ColaboradorControladorTest {
 
     @Test
     void delete() {
-        insert();
-        assertEquals(6, colaboradorRepository.count());
-        colaboradorRepository.delete(colaboradorRepository.getOne(6));
 
-        assertEquals(5, colaboradorRepository.count());
     }
 }
