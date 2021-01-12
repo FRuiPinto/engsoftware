@@ -7,6 +7,7 @@ import projecto.model.Colaborador;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
 import projecto.model.dto.ProjetoNewDTO;
+import projecto.model.dto.TarefaNewDTO;
 import projecto.repositories.ClienteRepository;
 import projecto.repositories.ColaboradorRepository;
 import projecto.repositories.ProjetoRepository;
@@ -80,6 +81,9 @@ public class ProjectServiceImpl implements ProjetoService {
     public Optional<Projeto> fromDTO(ProjetoNewDTO proj) {
         Optional<Cliente> cli1 = clienteRepository.findById(proj.getIdCliente());
         return cli1.map(cliente -> new Projeto(proj.getDescricao(), cliente, proj.getDtIniPrevisto(), proj.getDtFimPrevisto()));
+    }
+    public ProjetoNewDTO toDTO(Projeto projeto) {
+        return new ProjetoNewDTO(projeto.getCliente().getId(),projeto.getDescricao(),projeto.getDtIniPrevisto(),projeto.getDtFimPrevisto());
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import projecto.model.Colaborador;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
+import projecto.model.dto.ProjetoNewDTO;
 import projecto.model.dto.TarefaNewDTO;
 import projecto.repositories.ColaboradorRepository;
 import projecto.repositories.ProjetoRepository;

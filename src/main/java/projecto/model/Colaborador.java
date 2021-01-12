@@ -48,7 +48,6 @@ public class Colaborador implements Serializable {
 
     public Colaborador(String nome, Integer funcao) {
         this.nome=nome;
-        //  this.funcao = funcao.getCod();
         this.funcao = funcao;
         this.ativo = true;
     }
