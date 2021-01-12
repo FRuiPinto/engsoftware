@@ -94,4 +94,8 @@ public class Tarefa implements Serializable {
         this.ativo = true;
         this.tarefaEvolucao = new TarefaEvolucao();
     }
+
+    public void updateHoras(Integer horas){
+        this.tarefaEvolucao.setHorasExecutadas(horas);
+    }
 }
