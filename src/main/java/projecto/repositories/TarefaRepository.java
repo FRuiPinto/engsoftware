@@ -8,6 +8,7 @@ import projecto.model.Tarefa;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
@@ -28,4 +29,6 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
             ,@Param("percentagemHorasMin") Double percentagemHorasMin,@Param("percentagemHorasMax") Double percentagemHorasMax
             ,@Param("idColaborador")Integer idColaborador,@Param("idProjeto") Integer idProjeto);
 
+    Optional<Tarefa> findByDescricao(String descricao);
+    Optional<Tarefa> deleteByDescricao(String descricao);
 }

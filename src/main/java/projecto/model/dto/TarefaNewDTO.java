@@ -11,7 +11,7 @@ public class TarefaNewDTO {
     private LocalDate dtfim;
     private String descricao;
     private Integer horasPrevistas;
-
+    public TarefaNewDTO(){}
     public TarefaNewDTO( LocalDate inicio , LocalDate fim , String descricao , Integer projeto, Integer horasPrevistas){
         this.dtini = inicio;
         this.dtfim = fim ;
