@@ -26,4 +26,9 @@ class TarefaControladorTest {
 
     }
 
+    @Test
+    void findAll() throws Exception {
+
+
+    }
 }
