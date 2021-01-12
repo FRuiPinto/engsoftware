@@ -19,8 +19,8 @@ class ClienteControladorTest {
     @Test
     void find() {
         insert();
-        Optional<Cliente> cliente = clienteRepository.findById(6);
-        assertEquals(6, cliente.get().getId());
+        Optional<Cliente> cliente = clienteRepository.findById(1);
+        assertEquals(1, cliente.get().getId());
     }
 
     @Test
@@ -36,9 +36,9 @@ class ClienteControladorTest {
     @Test
     void insert() {
         Cliente cliente = new Cliente("Rui", "123456789");
-        assertEquals(5, clienteRepository.count());
+        assertEquals(0, clienteRepository.count());
         clienteRepository.save(cliente);
-        assertEquals(6, clienteRepository.count());
+        assertEquals(1, clienteRepository.count());
     }
 
     @Test

@@ -77,7 +77,7 @@ public class TarefaControlador {
             antigoColaborador = 0 ;
         }
         Optional<Tarefa> tarefaOptional = tarefaService.trocaColadoradores(idTarefa,novoColaborador,antigoColaborador);
-        return tarefaOptional.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
+        return tarefaOptional.map(value -> ResponseEntity.ok(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/filter")
