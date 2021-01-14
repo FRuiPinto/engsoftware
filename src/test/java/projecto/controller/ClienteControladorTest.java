@@ -18,9 +18,11 @@ import projecto.service.ClienteService;
 import projecto.service.ProjectServiceImpl;
 import projecto.service.TarefaService;
 
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -53,6 +55,7 @@ class ClienteControladorTest {
     private ClienteRepository clienteRepository;
     @MockBean
     private ClienteService clienteService;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -62,6 +65,7 @@ class ClienteControladorTest {
         String explicadorAsJsonString=new ObjectMapper().writeValueAsString(cliente);
 
         when(clienteService.find((int) 1L)).thenReturn(Optional.of(cliente));
+
 
         String httpResponseAsString=mockMvc.perform(get("/cliente/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
@@ -81,6 +85,7 @@ class ClienteControladorTest {
 
         when(clienteService.findAll()).thenReturn(clientes);
 
+
         String httpResponseAsString=mockMvc.perform(get("/cliente")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
@@ -96,6 +101,7 @@ class ClienteControladorTest {
         String explicadorAsJsonString=new ObjectMapper().writeValueAsString(cliente);
 
         mockMvc.perform(post("/cliente").content(explicadorAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());    }
+
 
     @Test
     void update() {
