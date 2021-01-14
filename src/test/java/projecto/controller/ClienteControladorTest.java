@@ -82,7 +82,7 @@ class ClienteControladorTest {
 
         when(clienteService.findAll()).thenReturn(clientes);
 
-        String httpResponseAsString=mockMvc.perform(get("/cliente")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String httpResponseAsString=mockMvc.perform(get("/cliente/")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
     }
@@ -98,12 +98,8 @@ class ClienteControladorTest {
 
         mockMvc.perform(post("/cliente").content(explicadorAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());    }
 
-
     @Test
     void update() {
-
-
-
 
     }
 

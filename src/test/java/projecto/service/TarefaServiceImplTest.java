@@ -23,6 +23,7 @@ class TarefaServiceImplTest {
 
     @Autowired
     private TarefaService tarefaService;
+
     @MockBean
     private ProjetoService projetoService;
     @MockBean

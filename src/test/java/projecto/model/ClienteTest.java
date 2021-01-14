@@ -31,5 +31,6 @@ class ClienteTest {
         novoCliente.setAtivo(false);
         assertEquals(false, novoCliente.getAtivo());
     }
+
 }
 
