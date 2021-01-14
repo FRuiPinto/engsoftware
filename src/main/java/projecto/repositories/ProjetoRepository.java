@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import projecto.model.Projeto;
+import projecto.model.Tarefa;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjetoRepository extends JpaRepository<Projeto, Integer> {
@@ -33,4 +35,9 @@ public interface ProjetoRepository extends JpaRepository<Projeto, Integer> {
             value = "select sum(t.tarefaEvolucao.perceExecutadas) from Tarefa as t where t.projeto.id = :id"
     )
     Double projectoTempoHorasPercentagemExecutada(Integer id);
+
+    Optional<Projeto> findById(Integer id);
+    List<Projeto> findAll();
+    Optional<Projeto> findByDescricao(String descricao);
+    Optional<Projeto> deleteByDescricao(String descricao);
 }

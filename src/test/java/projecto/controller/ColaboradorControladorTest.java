@@ -71,7 +71,7 @@ class ColaboradorControladorTest {
 
         when(colaboradorService.findAll()).thenReturn(colaboradores);
 
-        String httpResponseAsString=mockMvc.perform(get("/colaborador")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String httpResponseAsString=mockMvc.perform(get("/colaborador/")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
     }

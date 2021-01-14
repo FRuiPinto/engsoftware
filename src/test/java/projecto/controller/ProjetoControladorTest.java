@@ -52,7 +52,7 @@ public class ProjetoControladorTest {
     @Test
     void find() throws Exception {
         Projeto projeto=new Projeto();
-        String explicadorAsJsonString=new ObjectMapper().writeValueAsString(projeto);
+        String projectoAsJsonString=new ObjectMapper().writeValueAsString(projeto);
 
         when(projectService.findById((int) 1L)).thenReturn(Optional.of(projeto));
 
