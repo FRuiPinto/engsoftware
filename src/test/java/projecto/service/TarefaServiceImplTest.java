@@ -1,24 +1,21 @@
 package projecto.service;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import projecto.model.*;
-import projecto.model.dto.TarefaNewDTO;
+import projecto.model.Projeto;
+import projecto.model.Tarefa;
 import projecto.repositories.ClienteRepository;
 import projecto.repositories.ColaboradorRepository;
 import projecto.repositories.ProjetoRepository;
 import projecto.repositories.TarefaRepository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = TarefaServiceImpl.class)
@@ -26,13 +23,17 @@ class TarefaServiceImplTest {
 
     @Autowired
     private TarefaService tarefaService;
-
+    @MockBean
+    private ProjetoService projetoService;
     @MockBean
     private TarefaRepository tarefaRepository;
 
     @MockBean
     private ProjetoRepository projetoRepository;
-
+    @MockBean
+    private ColaboradorRepository colaboradorRepository;
+    @MockBean
+    private ClienteRepository clienteRepository;
     @Test
     void findById() {
         when(tarefaRepository.findById((int) 1L)).thenReturn(Optional.of(new Tarefa()));

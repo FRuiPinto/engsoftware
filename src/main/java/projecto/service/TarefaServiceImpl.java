@@ -7,6 +7,7 @@ import projecto.model.Projeto;
 import projecto.model.Tarefa;
 import projecto.model.dto.ProjetoNewDTO;
 import projecto.model.dto.TarefaNewDTO;
+import projecto.repositories.ClienteRepository;
 import projecto.repositories.ColaboradorRepository;
 import projecto.repositories.ProjetoRepository;
 import projecto.repositories.TarefaRepository;
@@ -21,12 +22,14 @@ public class TarefaServiceImpl implements TarefaService {
     private final ProjetoRepository projetoRepository;
     private final ColaboradorRepository colaboradorRepository;
     private final TarefaRepository tarefaRepository;
+    private final ClienteRepository clienteRepository;
 
     @Autowired
-    public TarefaServiceImpl(ProjetoRepository projetoRepository, ColaboradorRepository colaboradorRepository, TarefaRepository tarefaRepository) {
+    public TarefaServiceImpl(ProjetoRepository projetoRepository, ColaboradorRepository colaboradorRepository, TarefaRepository tarefaRepository, ClienteRepository clienteRepository) {
         this.projetoRepository = projetoRepository;
         this.colaboradorRepository = colaboradorRepository;
         this.tarefaRepository = tarefaRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     @Override
