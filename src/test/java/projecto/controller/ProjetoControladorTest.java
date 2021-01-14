@@ -10,10 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import projecto.model.Projeto;
 import projecto.model.Tarefa;
 import projecto.model.dto.ProjetoNewDTO;
-import projecto.repositories.ClienteRepository;
-import projecto.repositories.ColaboradorRepository;
-import projecto.repositories.ProjetoRepository;
-import projecto.repositories.TarefaRepository;
+import projecto.repositories.*;
 import projecto.service.ProjectServiceImpl;
 import projecto.service.TarefaService;
 
@@ -48,6 +45,8 @@ public class ProjetoControladorTest {
     private ColaboradorRepository colaboradorRepository;
     @MockBean
     private ClienteRepository clienteRepository;
+    @MockBean
+    private FuncaoColaboradorRepository funcaoColaboradorRepository;
     @Autowired
     private ObjectMapper objectMapper;
     @Test

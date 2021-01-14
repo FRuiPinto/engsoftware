@@ -26,14 +26,6 @@ class TarefaTest {
         tarefa.getTarefaEvolucao().setHorasExecutadas(0);
         assertEquals(0, tarefa.getTarefaEvolucao().getHorasExecutadas());
 
-
-        assertEquals(10, tarefa.getTarefaEvolucao().getHorasExecutadas());
-        tarefa.getTarefaEvolucao().setHorasExecutadasTemp(10);
-        assertEquals(20, tarefa.getTarefaEvolucao().getHorasExecutadas());
-        tarefa.getTarefaEvolucao().setHorasExecutadas(0);
-        assertEquals(0, tarefa.getTarefaEvolucao().getHorasExecutadas());
-
-
         assertEquals(true, tarefa.getAtivo());
         tarefa.setAtivo(false);
         assertEquals(false, tarefa.getAtivo());
