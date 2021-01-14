@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import projecto.model.Cliente;
 import projecto.model.Colaborador;
-import projecto.repositories.ColaboradorRepository;
+import projecto.repositories.*;
 import projecto.service.ClienteService;
 import projecto.service.ColaboradorService;
 
@@ -34,6 +34,18 @@ class ColaboradorControladorTest {
     @MockBean
     private ColaboradorService colaboradorService;
 
+    @MockBean
+    private TarefaRepository tarefaRepository;
+
+    @MockBean
+    private ProjetoRepository projetoRepository;
+    @MockBean
+    private ColaboradorRepository colaboradorRepository;
+    @MockBean
+    private ClienteRepository clienteRepository;
+    @MockBean
+    private FuncaoColaboradorRepository funcaoColaboradorRepository;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -47,7 +59,6 @@ class ColaboradorControladorTest {
         String httpResponseAsString=mockMvc.perform(get("/colaborador/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
-        mockMvc.perform(get("/colaborador/2")).andExpect(status().isNotFound());
     }
 
     @Test
@@ -75,14 +86,8 @@ class ColaboradorControladorTest {
 
         String clienteAsJsonString=new ObjectMapper().writeValueAsString(colaborador);
 
-        mockMvc.perform(post("/colaborador").content(clienteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        mockMvc.perform(post("/colaborador").content(clienteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
 
-        Colaborador colaboradorExistente=new Colaborador();
-        colaborador.setNome("Novo Colaborador");
-        colaborador.setFuncao(3);
-        String colaboradorExistenteAsJsonString=new ObjectMapper().writeValueAsString(colaboradorExistente);
-
-        mockMvc.perform(post("/colaborador").content(colaboradorExistenteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
     @Test

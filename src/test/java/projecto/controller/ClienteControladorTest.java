@@ -10,10 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import projecto.model.Cliente;
 import projecto.model.Projeto;
 import projecto.model.dto.ProjetoNewDTO;
-import projecto.repositories.ClienteRepository;
-import projecto.repositories.ColaboradorRepository;
-import projecto.repositories.ProjetoRepository;
-import projecto.repositories.TarefaRepository;
+import projecto.repositories.*;
 import projecto.service.ClienteService;
 import projecto.service.ProjectServiceImpl;
 import projecto.service.TarefaService;
@@ -54,6 +51,8 @@ class ClienteControladorTest {
     @MockBean
     private ClienteRepository clienteRepository;
     @MockBean
+    private FuncaoColaboradorRepository funcaoColaboradorRepository;
+    @MockBean
     private ClienteService clienteService;
 
     @Autowired
@@ -62,15 +61,13 @@ class ClienteControladorTest {
     @Test
     void find() throws Exception {
         Cliente cliente=new Cliente();
-        String explicadorAsJsonString=new ObjectMapper().writeValueAsString(cliente);
+        String clienteAsJsonString=new ObjectMapper().writeValueAsString(cliente);
 
-        when(clienteService.find((int) 1L)).thenReturn(Optional.of(cliente));
-
+        when(clienteService.find((int) 1L)).thenReturn(cliente);
 
         String httpResponseAsString=mockMvc.perform(get("/cliente/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
-        mockMvc.perform(get("/cliente/2")).andExpect(status().isNotFound());
 
     }
 
@@ -85,7 +82,6 @@ class ClienteControladorTest {
 
         when(clienteService.findAll()).thenReturn(clientes);
 
-
         String httpResponseAsString=mockMvc.perform(get("/cliente")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
@@ -96,11 +92,11 @@ class ClienteControladorTest {
     void insert() throws Exception {
         Cliente cliente=new Cliente();
         cliente.setNif("teste");
-        when(this.clienteService.insert(cliente)).thenReturn(Optional.of(cliente));
+        when(this.clienteService.insert(cliente)).thenReturn(cliente);
 
         String explicadorAsJsonString=new ObjectMapper().writeValueAsString(cliente);
 
-        mockMvc.perform(post("/cliente").content(explicadorAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());    }
+        mockMvc.perform(post("/cliente").content(explicadorAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());    }
 
 
     @Test
