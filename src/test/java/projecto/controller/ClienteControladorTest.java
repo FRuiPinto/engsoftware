@@ -8,13 +8,22 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import projecto.model.Cliente;
+import projecto.model.Projeto;
+import projecto.model.dto.ProjetoNewDTO;
+import projecto.repositories.ClienteRepository;
+import projecto.repositories.ColaboradorRepository;
+import projecto.repositories.ProjetoRepository;
+import projecto.repositories.TarefaRepository;
 import projecto.service.ClienteService;
+import projecto.service.ProjectServiceImpl;
+import projecto.service.TarefaService;
+
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,6 +39,21 @@ class ClienteControladorTest {
     private MockMvc mockMvc;
 
     @MockBean
+    private ProjectServiceImpl projectService;
+
+    @MockBean
+    private TarefaService tarefaService;
+
+    @MockBean
+    private TarefaRepository tarefaRepository;
+
+    @MockBean
+    private ProjetoRepository projetoRepository;
+    @MockBean
+    private ColaboradorRepository colaboradorRepository;
+    @MockBean
+    private ClienteRepository clienteRepository;
+    @MockBean
     private ClienteService clienteService;
 
     @Autowired
@@ -37,16 +61,17 @@ class ClienteControladorTest {
 
     @Test
     void find() throws Exception {
-
         Cliente cliente=new Cliente();
-        String clienteAsJsonString=new ObjectMapper().writeValueAsString(cliente);
+        String explicadorAsJsonString=new ObjectMapper().writeValueAsString(cliente);
 
-        when(clienteService.find(1)).thenReturn(cliente);
+        when(clienteService.find((int) 1L)).thenReturn(Optional.of(cliente));
+
 
         String httpResponseAsString=mockMvc.perform(get("/cliente/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
         mockMvc.perform(get("/cliente/2")).andExpect(status().isNotFound());
+
     }
 
     @Test
@@ -60,6 +85,7 @@ class ClienteControladorTest {
 
         when(clienteService.findAll()).thenReturn(clientes);
 
+
         String httpResponseAsString=mockMvc.perform(get("/cliente")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertNotNull(httpResponseAsString);
 
@@ -69,22 +95,13 @@ class ClienteControladorTest {
     @Test
     void insert() throws Exception {
         Cliente cliente=new Cliente();
-        cliente.setNome("Novo Cliente");
-        cliente.setNif("123456789");
+        cliente.setNif("teste");
+        when(this.clienteService.insert(cliente)).thenReturn(Optional.of(cliente));
 
-        when(this.clienteService.insert(cliente)).thenReturn(cliente);
+        String explicadorAsJsonString=new ObjectMapper().writeValueAsString(cliente);
 
-        String clienteAsJsonString=new ObjectMapper().writeValueAsString(cliente);
+        mockMvc.perform(post("/cliente").content(explicadorAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());    }
 
-        mockMvc.perform(post("/cliente").content(clienteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
-        Cliente clienteExistente=new Cliente();
-        clienteExistente.setNome("Novo Cliente");
-        clienteExistente.setNif("123456789");
-        String clienteExistenteAsJsonString=new ObjectMapper().writeValueAsString(clienteExistente);
-
-        mockMvc.perform(post("/cliente").content(clienteExistenteAsJsonString).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-    }
 
     @Test
     void update() {
